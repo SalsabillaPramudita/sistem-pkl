@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediksi Tempat PKL</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        /* Tambahkan CSS styling di sini atau buat file CSS terpisah */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .error {
+            color: red;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Prediksi Tempat PKL Berdasarkan Keterampilan Teknis</h1>
+        <form id="predictionForm" method="POST">
+            <div class="skills-section">
+                {% for category, skills_list in skills.items() %}
+                    <div class="skill-category">
+                        <label>{{ category }}</label>
+                        <ul>
+                            {% for skill in skills_list %}
+                                <li><input type="checkbox" name="keterampilan_teknis" value="{{ skill }}">{{ skill }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <label for="preferensi_lokasi">Preferensi Lokasi</label>
+            <input type="text" id="preferensi_lokasi" name="preferensi_lokasi" required>
+
+            <button type="submit">Prediksi</button>
+        </form>
+
+        <div id="result" class="result"></div>
+        <div id="error" class="error" style="color: red;"></div>
+    </div>
+
+    <script>
+document.getElementById('predictionForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+    const keterampilan_teknis = [];
+    formData.forEach((value, key) => {
+        if (key === 'keterampilan_teknis') keterampilan_teknis.push(value);
+    });
+
+    const data = {
+        keterampilan_teknis: keterampilan_teknis,
+        preferensi_lokasi: document.getElementById('preferensi_lokasi').value
+    };
+
+    fetch('/predict2', {  // Harus sesuai dengan route di server
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json(); // Parsing JSON dari server
+    })
+    .then(data => {
+        if (data.error) {
+            document.getElementById('error').textContent = 'Error: ' + data.error;
+            document.getElementById('result').textContent = '';
+        } else {
+            document.getElementById('error').textContent = '';
+            let resultHTML = `<p><strong>Keterampilan Teknis:</strong> ${data.keterampilan_teknis}</p>`;
+            resultHTML += `<p><strong>Preferensi Lokasi:</strong> ${data.preferensi_lokasi}</p>`;
+            resultHTML += `<h3>Perusahaan yang Direkomendasikan:</h3>`;
+            data.prediksi.forEach((item, index) => {
+                resultHTML += `<p><strong>Perusahaan ${index + 1}:</strong> ${item.perusahaan} (Skor kecocokan: ${item.skor_kecocokan.toFixed(2)}%)<br><strong>Keterampilan yang Cocok:</strong> ${item.keterampilan_cocok.join(', ')}</p>`;
+            });
+            document.getElementById('result').innerHTML = resultHTML;
+        }
+    })
+    .catch(error => {
+        document.getElementById('error').textContent = 'Terjadi kesalahan: ' + error.message;
+        document.getElementById('result').textContent = '';
+    });
+});
+
+
+
+    </script>
+</body>
+
+</html>

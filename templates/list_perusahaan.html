@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block title %}
+List Perusahaan
+{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-header bg-success text-white">
+            <h4 class="text-center">Daftar Perusahaan</h4>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Nama Perusahaan</th>
+                        <th>Lokasi</th>
+                        <th>Bidang Industri</th>
+                        <th>Kriteria Teknis</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for perusahaan in perusahaan_list %}
+                    <tr>
+                        <td>{{ perusahaan.nama_perusahaan }}</td>
+                        <td>{{ perusahaan.lokasi_kota }}</td>
+                        <td>{{ perusahaan.bidang_industri }}</td>
+                        <td>{{ perusahaan.kriteria_teknis }}</td>
+                        <td>
+                            <a href="/edit_perusahaan/{{ perusahaan.id }}" class="btn btn-warning btn-sm">Edit</a>
+                            <form action="/delete_perusahaan/{{ perusahaan.id }}" method="post" style="display:inline-block;">
+                                <button class="btn btn-danger btn-sm" type="submit">Hapus</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

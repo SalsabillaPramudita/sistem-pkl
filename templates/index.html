@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}Prediksi Tempat PKL{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg">
+                <div class="card-body">
+                    <h1 class="text-center mb-4">Prediksi Tempat PKL</h1>
+                    <!-- Form Prediksi -->
+                    <form id="predictionForm">
+                        <div class="mb-3">
+                            <label for="keterampilan_teknis" class="form-label">Keterampilan Teknis</label>
+                            <input type="text" class="form-control" id="keterampilan_teknis" placeholder="Masukkan keterampilan teknis" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="preferensi_lokasi" class="form-label">Preferensi Lokasi</label>
+                            <input type="text" class="form-control" id="preferensi_lokasi" placeholder="Masukkan preferensi lokasi" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="program_studi" class="form-label">Program Studi</label>
+                            <input type="text" class="form-control" id="program_studi" placeholder="Masukkan program studi" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="industri" class="form-label">Bidang Industri</label>
+                            <input type="text" class="form-control" id="industri" placeholder="Masukkan bidang industri" required>
+                        </div>
+                        <button type="submit" class="btn btn-success w-100">Prediksi Tempat PKL</button>
+                    </form>
+
+                    <!-- Hasil Prediksi -->
+                    <div id="predictionResult" class="alert alert-info mt-4 d-none"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasil Prediksi Tempat PKL</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .card {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            padding: 15px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            font-weight: bold;
+            font-size: 18px;
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+
+        .card-body {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .score {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .error {
+            color: red;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+
+            .card {
+                padding: 10px;
+            }
+
+            .card-header, .card-body {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hasil Prediksi Tempat PKL</h1>
+
+        {% if hasil_prediksi %}
+            <div class="result">
+                {% for perusahaan, jarak in hasil_prediksi %}
+                    <div class="card">
+                        <div class="card-header">
+                            Perusahaan: {{ perusahaan }}
+                        </div>
+                        <div class="card-body">
+                            Jarak (semakin kecil semakin cocok): <span class="score">{{ jarak }}</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>Tidak ada perusahaan yang cocok ditemukan.</p>
+        {% endif %}
+
+        <a href="/">Kembali ke Halaman Utama</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasil Prediksi Tempat PKL</title>
+</head>
+<body>
+    <h1>Hasil Prediksi Tempat PKL</h1>
+
+    {% if hasil %}
+        {% for item in hasil %}
+            <p>Perusahaan: {{ item.perusahaan }}</p>
+            <p>Skor Kecocokan: {{ item.skor_kecocokan }}%</p>
+            <p>Keterampilan yang Cocok: {{ item.keterampilan_cocok }}</p>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <p>Tidak ada hasil prediksi yang ditemukan.</p>
+    {% endif %}
+
+    <a href="/">Kembali ke Halaman Utama</a>
+</body>
+</html>

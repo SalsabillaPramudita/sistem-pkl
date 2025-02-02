@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}Daftar Mahasiswa{% endblock %}
+
+{% block content %}
+    <h2 class="text-center">Daftar Mahasiswa</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nama</th>
+                <th>Program Studi</th>
+                <th>Keterampilan Teknis</th>
+                <th>Preferensi Lokasi</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for mahasiswa in mahasiswa %}
+            <tr>
+                <td>{{ mahasiswa.id }}</td>
+                <td>{{ mahasiswa.nama }}</td>
+                <td>{{ mahasiswa.program_studi }}</td>
+                <td>{{ mahasiswa.keterampilan_teknis }}</td>
+                <td>{{ mahasiswa.preferensi_lokasi }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

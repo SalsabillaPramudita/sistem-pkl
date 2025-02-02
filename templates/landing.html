@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block title %}Prediksi Tempat PKL | Landing Page{% endblock %}
+
+{% block content %}
+    <!-- Hero Section with Image and Animation -->
+    <section class="bg-light text-center py-5 hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6" data-aos="fade-right">
+                    <h1 class="display-4 mb-4">Selamat Datang di Aplikasi Prediksi Tempat PKL</h1>
+                    <p class="lead">Temukan tempat PKL yang paling cocok untuk Anda berdasarkan keterampilan, program studi, dan preferensi lokasi Anda.</p>
+                    <a href="/predict" class="btn btn-success btn-lg mt-3">Mulai Prediksi Sekarang</a>
+                </div>
+                <div class="col-md-6" data-aos="fade-left">
+                    <img src="{{ url_for('static', filename='images/fotolanding.jpg') }}" alt="Gambar Prediksi PKL" class="img-fluid rounded animate__animated animate__zoomIn">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section with Animations -->
+    <section class="py-5 bg-white text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4" data-aos="fade-up">
+                    <i class="bi bi-check-circle-fill text-success" style="font-size: 3rem;"></i>
+                    <h3 class="mt-3">Tepat Sasaran</h3>
+                    <p>Kami menggunakan algoritma KNN untuk memberikan prediksi tempat PKL yang paling cocok dengan keterampilan Anda.</p>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <i class="bi bi-speedometer2 text-primary" style="font-size: 3rem;"></i>
+                    <h3 class="mt-3">Cepat dan Akurat</h3>
+                    <p>Hasil prediksi dalam hitungan detik, membuat proses lebih cepat dan efisien.</p>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <i class="bi bi-shield-check text-warning" style="font-size: 3rem;"></i>
+                    <h3 class="mt-3">Aman & Terpercaya</h3>
+                    <p>Data Anda aman dengan kami, menjaga privasi dan keamanan informasi yang Anda berikan.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

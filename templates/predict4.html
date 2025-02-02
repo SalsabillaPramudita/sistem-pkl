@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediksi Tempat PKL</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        textarea {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .error {
+            color: red;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Prediksi Tempat PKL</h1>
+        <form id="predictionForm" method="POST" action="/predict">
+            <label for="nama">Nama</label>
+            <input type="text" id="nama" name="nama" required>
+
+            <label for="keterampilan_teknis">Keterampilan Teknis</label>
+            <textarea id="keterampilan_teknis" name="keterampilan_teknis" rows="4" required></textarea>
+
+            <label for="preferensi_lokasi">Preferensi Lokasi</label>
+            <input type="text" id="preferensi_lokasi" name="preferensi_lokasi" required>
+
+            <button type="submit">Prediksi Tempat PKL</button>
+        </form>
+
+        {% if prediksi %}
+        <h2>Perusahaan yang Paling Cocok</h2>
+        <ul>
+            {% for perusahaan, score in prediksi %}
+            <li>
+                <strong>Perusahaan:</strong> {{ perusahaan }} <br>
+                <strong>Skor:</strong> {{ score }} <br>
+            </li>
+            {% endfor %}
+        </ul>
+        {% elif error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
+    </div>
+</body>
+
+</html>

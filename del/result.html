@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasil Prediksi</title>
+</head>
+<body>
+    <h1>Hasil Prediksi Tempat PKL</h1>
+    <ul>
+        {% for perusahaan, hasil in prediksi.items() %}
+        <li>
+            <strong>Perusahaan:</strong> {{ perusahaan }}<br>
+            <strong>Skor Kecocokan:</strong> {{ hasil[0] }}%<br>
+            <strong>Keterampilan Cocok:</strong> {{ hasil[1]|join(', ') }}
+        </li>
+        {% endfor %}
+    </ul>
+
+    <a href="/predict">Coba lagi</a>
+</body>
+</html>
