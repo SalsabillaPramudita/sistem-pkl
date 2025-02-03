@@ -55,6 +55,7 @@
         color: #333;
     }
 
+    /* Tampilan Card untuk checkbox */
     .checkbox-group {
         display: flex;
         flex-wrap: wrap;
@@ -66,7 +67,7 @@
         border: 1px solid #ccc;
         border-radius: 8px;
         padding: 10px;
-        width: 180px;
+        width: 180px; /* Lebar setiap kotak checkbox */
         display: flex;
         align-items: center;
         justify-content: flex-start;
@@ -88,7 +89,7 @@
     }
 
     input[type="checkbox"]:checked:before {
-        content: "\2713";
+        content: "\2713"; /* Simbol centang */
         color: white;
         display: flex;
         justify-content: center;
@@ -97,11 +98,13 @@
         font-weight: bold;
     }
 
+    /* Styling label untuk checkbox */
     label {
         font-size: 16px;
         color: #333;
     }
 
+    /* Styling untuk kategori */
     .category-label {
         font-weight: bold;
         margin-top: 20px;
@@ -109,6 +112,7 @@
         color: #007BFF;
     }
 
+    /* Styling untuk inputan preferensi lokasi */
     .card-lokasi {
         background-color: #f9f9f9;
         border: 1px solid #ccc;
@@ -132,6 +136,7 @@
         width: 100%;
     }
 
+    /* Button prediksi hijau */
     button {
         background-color: #28a745;
         color: white;
@@ -143,7 +148,7 @@
     }
 
     button:hover {
-        background-color: #aeb9b1;
+        background-color: #218838;
     }
 
     .error {
@@ -151,6 +156,7 @@
         margin-top: 20px;
     }
 
+    /* Tambahan: tanda bintang untuk kolom wajib */
     .required::after {
         content: '*';
         color: red;

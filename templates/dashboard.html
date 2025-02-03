@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <h2>Dashboard Admin</h2>
+    <a href="{{ url_for('admin.logout') }}">Logout</a>
+    
+    <h3>Data Prediksi</h3>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Keterampilan Teknis</th>
+            <th>Preferensi Lokasi</th>
+            <th>Perusahaan</th>
+        </tr>
+        {% for prediksi in predictions %}
+            <tr>
+                <td>{{ prediksi.id }}</td>
+                <td>{{ prediksi.keterampilan_teknis }}</td>
+                <td>{{ prediksi.preferensi_lokasi }}</td>
+                <td>{{ prediksi.perusahaan }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
