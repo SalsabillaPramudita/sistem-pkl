@@ -73,6 +73,23 @@
             margin-top: 20px;
         }
 
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
         @media (max-width: 600px) {
             .container {
                 padding: 15px;
@@ -89,61 +106,53 @@
     </style>
 </head>
 <body>
-    <!-- Hasil Prediksi -->
-<div class="container">
-    <h1>Hasil Prediksi Tempat PKL</h1>
-    
-    <!-- Menampilkan Keterampilan Teknis dan Preferensi Lokasi -->
-    <div>
-        <strong>Keterampilan Teknis:</strong> {{ keterampilan_teknis }}<br>
-        <strong>Preferensi Lokasi:</strong> {{ preferensi_lokasi }}<br>
-    </div>
-    
-    {% if hasil_prediksi %}
-        <div class="result">
-            {% for perusahaan, jarak in hasil_prediksi %}
-                <div class="card">
-                    <div class="card-header">
-                        Perusahaan: {{ perusahaan }}
-                    </div>
-                    <div class="card-body">
-                        Jarak (semakin kecil semakin cocok): <span class="score">{{ jarak }}</span>
-                    </div>
-                </div>
-            {% endfor %}
+    <div class="container">
+        <h1>Hasil Prediksi Tempat PKL</h1>
+        
+        <!-- Menampilkan Keterampilan Teknis dan Preferensi Lokasi -->
+        <div>
+            <strong>Keterampilan Teknis:</strong> {{ keterampilan_teknis }}<br>
+            <strong>Preferensi Lokasi:</strong> {{ preferensi_lokasi }}<br>
         </div>
-    {% else %}
-        <p>Tidak ada perusahaan yang cocok ditemukan.</p>
-    {% endif %}
-    
-    <!-- Link untuk Kembali -->
-    <a href="/">Kembali ke Halaman Utama</a>
 
-    <!-- Form untuk Menyimpan Prediksi -->
- <!-- Form untuk Menyimpan Prediksi -->
-<form action="{{ url_for('save_prediction') }}" method="POST">
-    <input type="hidden" name="keterampilan_teknis" value="{{ keterampilan_teknis }}">
-    <input type="hidden" name="preferensi_lokasi" value="{{ preferensi_lokasi }}">
-    
-    <!-- Ambil perusahaan pertama yang paling cocok -->
-    <input type="hidden" name="perusahaan" value="{{ hasil_prediksi[0][0] }}">  <!-- hasil_prediksi[0][0] adalah nama perusahaan pertama -->
-    
-    <button type="submit">Save</button>
-</form>
+        <!-- Menampilkan Hasil Prediksi -->
+        {% if hasil_prediksi %}
+            <div class="result">
+                {% for perusahaan, jarak in hasil_prediksi %}
+                    <div class="card">
+                        <div class="card-header">
+                            Perusahaan: {{ perusahaan }}
+                        </div>
+                        <div class="card-body">
+                            Jarak (semakin kecil semakin cocok): <span class="score">{{ jarak }}</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>Tidak ada perusahaan yang cocok ditemukan.</p>
+        {% endif %}
+        
+        <!-- Link untuk Kembali -->
+        <a href="/">Kembali ke Halaman Utama</a>
 
-   
-</div>
-<!-- 
-    <form action="{{ url_for('save_prediction') }}" method="POST">
-        <input type="hidden" name="keterampilan_teknis" value="{{ keterampilan_teknis }}">
-        <input type="hidden" name="preferensi_lokasi" value="{{ preferensi_lokasi }}">
-        
-        {% for perusahaan, skor in hasil_prediksi %}
-            <input type="hidden" name="perusahaan[]" value="{{ perusahaan }}">
-        {% endfor %}
-        
-        <button type="submit">Simpan Hasil</button> -->
-    <!-- </form> -->
-    <!-- </form> -->
+        <!-- Form untuk Save dan Ekspor ke PDF -->
+        <form id="exportForm" action="{{ url_for('save_and_export_pdf') }}" method="POST">
+            <input type="hidden" name="keterampilan_teknis" value="{{ keterampilan_teknis }}">
+            <input type="hidden" name="preferensi_lokasi" value="{{ preferensi_lokasi }}">
+            <input type="hidden" id="hasil_prediksi_input" name="hasil_prediksi">
+            
+            {% if hasil_prediksi %}
+                <button type="submit">Simpan dan Ekspor ke PDF</button>
+            {% endif %}
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let hasilPrediksi = {{ hasil_prediksi | tojson | safe }};  // Konversi dari Flask ke objek JavaScript
+            document.getElementById("hasil_prediksi_input").value = JSON.stringify(hasilPrediksi);  // Ubah ke string JSON
+        });
+    </script>
 </body>
 </html>
